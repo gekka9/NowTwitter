@@ -151,7 +151,6 @@ class MyUserStreamAdapter extends UserStreamAdapter
 {
 
   private ClientModel model;
-  private int count=0; 
   
   public MyUserStreamAdapter(ClientModel model){
     this.model=model;

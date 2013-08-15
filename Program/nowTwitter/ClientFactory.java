@@ -9,7 +9,7 @@ public class ClientFactory {
   
   public ClientFactory(Twitter twitter){
     this.model=new ClientModel(twitter);
-    this.frame = new MainFrame(this.model);
+    this.frame = new MainFrame(new Tweet(this.model));
     this.model.setFrame(this.frame);
   }
   

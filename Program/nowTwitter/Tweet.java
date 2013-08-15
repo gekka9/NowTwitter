@@ -37,8 +37,9 @@ public class Tweet extends JPanel{
   public static final int ICON_SIZE=60;
   public static final int CONSOLE_SIZE=80;
   
-  public Tweet(){
+  public Tweet(ClientModel model){
     super();
+    this.model=model;
     GridBagLayout layout=new GridBagLayout();
     this.setLayout(layout);
     GridBagConstraints c=new GridBagConstraints();
@@ -149,8 +150,8 @@ public class Tweet extends JPanel{
     console.add(otherButton);  
   }
   
-  public void setValues(Status status,ClientModel model,ImageIcon image,boolean isSelect){
-    this.icon=image;
+  public void setValue(Status status){
+    this.icon=model.getIconMap().get(status.getUser());
     this.iconLabel.setIcon(this.icon);
     this.name.setText(status.getUser().getName());
     this.text.setText(status.getText());
@@ -158,6 +159,7 @@ public class Tweet extends JPanel{
     this.footer.setText(" at:"+sdf.format(status.getCreatedAt()));
     ActionListener[] listeners= this.reButton.getActionListeners();
     Reply reply = (Reply) listeners[0];
+    reply.setStatus(status);
     
     listeners= this.rtButton.getActionListeners();
     ReTweet reTweet = (ReTweet) listeners[0];
@@ -166,11 +168,6 @@ public class Tweet extends JPanel{
     listeners= this.favButton.getActionListeners();
     Favorite favorite = (Favorite) listeners[0];
     favorite.setStatus(status, model.getTwitter());
-    if(isSelect){
-      this.setBackground(Color.blue);
-    }else{
-      this.setBackground(Color.lightGray);
-    }
   }
 
   public ClientModel getClientModel() {

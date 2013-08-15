@@ -15,13 +15,12 @@ import javax.swing.ImageIcon;
 
 public class ClientModel {
   private Twitter twitter;
-  private HashMap<User,ImageIcon> iconMap;
+  private HashMap<User,ImageIcon> iconMap=new HashMap<User, ImageIcon>();
   private MainFrame frame;
   private static int SIZE=48;
 
   public ClientModel(Twitter twitter){
     this.twitter=twitter;
-    this.iconMap=new HashMap<User, ImageIcon>();
   }
 
   public Twitter getTwitter() {
@@ -37,7 +36,11 @@ public class ClientModel {
   }
   
   public void viewPost(Status status){
-
+    if(this.iconMap.containsKey(status.getUser())){
+    }else{
+      this.iconMap.put(status.getUser(), this.createIcon(status.getUser().getProfileImageURL()));
+    }
+    this.frame.setValue(status);
   }
 
   
@@ -56,5 +59,9 @@ public class ClientModel {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public HashMap<User,ImageIcon> getIconMap() {
+    return this.iconMap;
   }
 }
