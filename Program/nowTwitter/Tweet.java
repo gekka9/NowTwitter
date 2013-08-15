@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -45,7 +46,7 @@ public class Tweet extends JPanel{
     GridBagConstraints c=new GridBagConstraints();
     c.fill = GridBagConstraints.BOTH;  // 制約の記述
     c.anchor=GridBagConstraints.NORTHWEST;
-    this.setBackground(Color.red);
+    this.setBackground(Color.lightGray);
     
     //アイコン
     c.gridx=0;
@@ -133,7 +134,7 @@ public class Tweet extends JPanel{
     reButton.setEnabled(true);
     reButton.setPreferredSize(new Dimension(BUTTON_SIZE,BUTTON_SIZE));
     reButton.setMaximumSize(new Dimension(BUTTON_SIZE,BUTTON_SIZE));
-    reButton.addActionListener(new Reply());
+    reButton.addActionListener(new Reply(this.model));
     console.add(reButton);
     
 
@@ -158,6 +159,7 @@ public class Tweet extends JPanel{
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss", Locale.JAPAN);
     this.footer.setText(" at:"+sdf.format(status.getCreatedAt()));
     ActionListener[] listeners= this.reButton.getActionListeners();
+    
     Reply reply = (Reply) listeners[0];
     reply.setStatus(status);
     
@@ -174,15 +176,24 @@ public class Tweet extends JPanel{
     return this.model;
   }
   class Reply implements ActionListener{
-    private Status status;
-    public Reply(){
+    private JFrame replyFrame;
+    private ReplyField replyField;
+    public Reply(ClientModel model){
       super();
+      this.replyFrame=new JFrame();
+      this.replyFrame.setVisible(false);
+      this.replyFrame.setMinimumSize(new Dimension(100,100));
+      this.replyFrame.setLocation(50,50);
+      this.replyFrame.setAlwaysOnTop(true);
+      this.replyField = new ReplyField(model);
+      this.replyFrame.add(this.replyField);
     }
     public void setStatus(Status status){
-      this.status=status;
+      this.replyField.setValue(status);
     }
     @Override
     public void actionPerformed(ActionEvent arg0) {
+      this.replyFrame.setVisible(true);
     }
   }
   
