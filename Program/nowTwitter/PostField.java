@@ -1,13 +1,10 @@
 package nowTwitter;
 
 import java.awt.Dimension;
-import java.io.IOException;
 
 import javax.swing.JTextArea;
 
-import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 
 public class PostField extends JTextArea{
   private static final long serialVersionUID = 1L;

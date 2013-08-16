@@ -3,7 +3,6 @@ package nowTwitter;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 public class Poster implements KeyListener{
 

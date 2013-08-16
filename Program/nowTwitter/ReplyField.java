@@ -1,6 +1,5 @@
 package nowTwitter;
 
-import java.io.IOException;
 
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -36,7 +35,7 @@ public class ReplyField extends PostField{
       this.destTweet=0;
       this.destUser=null;
       this.setText("");
-      this.getParent().setVisible(false);
+      //this.getParent().setVisible(false);
     }
   }
 

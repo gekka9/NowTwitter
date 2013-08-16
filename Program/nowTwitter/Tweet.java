@@ -155,7 +155,8 @@ public class Tweet extends JPanel{
     this.icon=model.getIconMap().get(status.getUser());
     this.iconLabel.setIcon(this.icon);
     this.name.setText(status.getUser().getName());
-    this.text.setText(status.getText());
+    this.text.setText(this.omitLongTweet(status.getText()));
+    //this.text.setText(status.getText());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss", Locale.JAPAN);
     this.footer.setText(" at:"+sdf.format(status.getCreatedAt()));
     ActionListener[] listeners= this.reButton.getActionListeners();
@@ -171,6 +172,30 @@ public class Tweet extends JPanel{
     Favorite favorite = (Favorite) listeners[0];
     favorite.setStatus(status, model.getTwitter());
   }
+  
+  private String omitLongTweet(String target){
+    char[] targetArray = target.toCharArray();
+    int count=0;
+    boolean isOmitted=false;
+    for(char aChar : targetArray){
+      if(aChar == '\n'){
+        count++;
+      }
+    }
+    if(count > 3){
+      target=target.replaceAll("\n", "");
+      isOmitted=true;
+    }
+    if(target.length()>70){
+      target = target.substring(0, 69);
+      target = target + "...";
+      isOmitted=true;
+    }
+    if(isOmitted){
+      target = target+" [omitted]";
+    }
+    return target;
+  }
 
   public ClientModel getClientModel() {
     return this.model;
@@ -178,21 +203,24 @@ public class Tweet extends JPanel{
   class Reply implements ActionListener{
     private JFrame replyFrame;
     private ReplyField replyField;
+    private Status status;
     public Reply(ClientModel model){
       super();
       this.replyFrame=new JFrame();
       this.replyFrame.setVisible(false);
-      this.replyFrame.setMinimumSize(new Dimension(100,100));
+      this.replyFrame.setMinimumSize(new Dimension(200,100));
       this.replyFrame.setLocation(50,50);
       this.replyFrame.setAlwaysOnTop(true);
       this.replyField = new ReplyField(model);
       this.replyFrame.add(this.replyField);
     }
     public void setStatus(Status status){
-      this.replyField.setValue(status);
+      this.status=status;
     }
     @Override
     public void actionPerformed(ActionEvent arg0) {
+      this.replyFrame.setTitle("reply to @"+status.getUser().getScreenName());
+      this.replyField.setValue(this.status);
       this.replyFrame.setVisible(true);
     }
   }

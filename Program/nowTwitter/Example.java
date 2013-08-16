@@ -29,8 +29,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class Example
 {
-  public static final String KEY = "5EHIcwWrFiKDJ19l2ceoDQ";
-  public static final String SECRET = "yCm7uy1dJMUHG2HRYvozy5iuQ9WEuegssmlBpv6I4";
+  public static final String KEY = "8Eoh5bZVrEtE6mzfOvujiw";
+  public static final String SECRET = "pLjgkrxwHQymjP12gKUSh8PfJ1LlGhWJgdYVuIA";
   public static final String ACCESS_FILENAME="resource/access.obj";
   
   public static void main(String[] args) throws Exception{
