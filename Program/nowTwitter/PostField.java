@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JTextArea;
 
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 
 public class PostField extends JTextArea{
   private static final long serialVersionUID = 1L;
@@ -17,10 +18,17 @@ public class PostField extends JTextArea{
   public PostField(ClientModel model){
     this.model=model;
     this.twitter=model.getTwitter();
-    this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-    this.setMaximumSize(new Dimension(Short.MAX_VALUE, 80));
+    this.setRows(3);
     this.setLineWrap(true);
+    this.addKeyListener(new Poster(this));
   }
   public void post(){
+    try {
+      this.twitter.updateStatus(this.getText());
+    } catch (TwitterException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    this.setText("");
   }
 }

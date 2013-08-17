@@ -26,8 +26,6 @@ public class Poster implements KeyListener{
     int mod = e.getModifiersEx();
     if ((mod & InputEvent.META_DOWN_MASK) != 0 && key == KeyEvent.VK_ENTER){
       this.field.post();
-    }else if ((mod & InputEvent.META_DOWN_MASK) != 0 && (mod & InputEvent.SHIFT_DOWN_MASK) != 0 && key == KeyEvent.VK_ENTER){
-
     }
   }
 

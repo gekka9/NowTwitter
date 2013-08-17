@@ -1,6 +1,8 @@
 package nowTwitter;
 
 
+import javax.swing.JFrame;
+
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
@@ -8,11 +10,12 @@ import twitter4j.TwitterException;
 public class ReplyField extends PostField{
   private long destTweet;
   private String destUser;
+  private JFrame frame;
 
 
-  public ReplyField(ClientModel model) {
+  public ReplyField(ClientModel model,JFrame frame) {
     super(model);
-    this.addKeyListener(new Poster(this));
+    this.frame=frame;
   }
 
   private static final long serialVersionUID = 1L;
@@ -37,6 +40,7 @@ public class ReplyField extends PostField{
       this.setText("");
       //this.getParent().setVisible(false);
     }
+    this.frame.setVisible(false);
   }
 
 }

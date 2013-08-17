@@ -41,6 +41,9 @@ public class Tweet extends JPanel{
   public Tweet(ClientModel model){
     super();
     this.model=model;
+    this.setFocusable(false);
+    this.setEnabled(false);
+    this.setPreferredSize(new Dimension(400,120));
     GridBagLayout layout=new GridBagLayout();
     this.setLayout(layout);
     GridBagConstraints c=new GridBagConstraints();
@@ -197,6 +200,16 @@ public class Tweet extends JPanel{
     return target;
   }
 
+  public JButton getReplyButton(){
+    return this.reButton;
+  }
+  public JButton getFavoriteButton(){
+    return this.favButton;
+  }
+  public JButton getRetweetButton(){
+    return this.rtButton;
+  }
+  
   public ClientModel getClientModel() {
     return this.model;
   }
@@ -211,7 +224,7 @@ public class Tweet extends JPanel{
       this.replyFrame.setMinimumSize(new Dimension(200,100));
       this.replyFrame.setLocation(50,50);
       this.replyFrame.setAlwaysOnTop(true);
-      this.replyField = new ReplyField(model);
+      this.replyField = new ReplyField(model,replyFrame);
       this.replyFrame.add(this.replyField);
     }
     public void setStatus(Status status){
