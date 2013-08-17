@@ -18,7 +18,7 @@ public class PostField extends JTextArea{
   public PostField(ClientModel model){
     this.model=model;
     this.twitter=model.getTwitter();
-    this.setRows(3);
+    this.setRows(2);
     this.setLineWrap(true);
     this.addKeyListener(new Poster(this));
   }
